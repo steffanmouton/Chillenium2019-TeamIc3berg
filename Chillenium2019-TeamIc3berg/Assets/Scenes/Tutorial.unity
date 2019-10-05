@@ -130,9 +130,9 @@ GameObject:
   m_Component:
   - component: {fileID: 407521882}
   - component: {fileID: 407521881}
-  - component: {fileID: 407521880}
   - component: {fileID: 407521879}
   - component: {fileID: 407521878}
+  - component: {fileID: 407521880}
   m_Layer: 0
   m_Name: Player 3
   m_TagString: Untagged
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 407521877}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684a0cdf724c3a84798ee9850ea1db76, type: 3}
+  m_Script: {fileID: 11500000, guid: de92bd142c7490441bc2b31f3100064f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
@@ -36535,9 +36535,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2013238742}
   - component: {fileID: 2013238741}
-  - component: {fileID: 2013238740}
   - component: {fileID: 2013238739}
   - component: {fileID: 2013238738}
+  - component: {fileID: 2013238740}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Untagged
@@ -36594,7 +36594,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2013238737}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684a0cdf724c3a84798ee9850ea1db76, type: 3}
+  m_Script: {fileID: 11500000, guid: ce56545fe541510418566600577bc916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
