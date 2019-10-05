@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackBehaviour : MonoBehaviour
+public class Player2AttackBehaviour : MonoBehaviour
 {
+    
     public PlayerMovement owningPlayer;
     public float attackOffset;
     public Vector2 movementVector;
@@ -17,7 +17,7 @@ public class PlayerAttackBehaviour : MonoBehaviour
 
     private void Start()
     {
-       
+        
     }
     
     void FixedUpdate()
@@ -26,7 +26,7 @@ public class PlayerAttackBehaviour : MonoBehaviour
         movementVector.y = owningPlayer.movement.y;
         
         if (movementVector.magnitude > .5f)
-        transform.localPosition = new Vector3(movementVector.normalized.x * attackOffset, movementVector.normalized.y * attackOffset, 0);
+            transform.localPosition = new Vector3(movementVector.normalized.x * attackOffset, movementVector.normalized.y * attackOffset, 0);
         
         // Melee Attack
         if (Input.GetButtonDown("Fire1"))
@@ -37,7 +37,7 @@ public class PlayerAttackBehaviour : MonoBehaviour
             if (targetsInRange.Length >= 1)
             {
                 targetsInRange[0].SendMessage("TakeDamage");
-                Debug.Log("Hit" + targetsInRange[0].name);
+                Debug.Log("Hit" + targetsInRange[1].name);
             }
         }
     }
