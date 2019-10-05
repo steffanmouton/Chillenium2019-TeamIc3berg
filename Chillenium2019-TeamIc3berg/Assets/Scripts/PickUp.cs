@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    private Inventory inventory;
-
-    private void start(){
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+    private Inventory inv;
+    
+    public GameObject item;
+    private void Start(){
+        // private GameObject player = GameObject.Find
+        // player.tag 
+        inv = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        print(inv.isFull);
     }
 
     void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Player")){
-            for(int i = 0; i < inventory.slots.Length; i++){
-                if(inventory.isFull[i] == false){
+            int i;
+            for(i = 0; i < inv.slots.Length; i++){
+                if(inv.isFull[i] == false){
                     //item can be picked up
                     //item is now equal true
-                    inventory.isFull[i] = true;
-                    break;
-                }else{
-                    //inventory is full
+                    inv.isFull[i] = true;
+                    Instantiate(item, inv.slots[i].transform, false);
+                    Destroy(item);
                     break;
                 }
             }
