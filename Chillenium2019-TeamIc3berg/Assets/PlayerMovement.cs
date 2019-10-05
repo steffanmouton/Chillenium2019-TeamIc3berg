@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     bool faceRight = true;
     public Vector2 movement;
+    private SpriteRenderer sr;
+
+    private void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -25,14 +32,14 @@ public class PlayerMovement : MonoBehaviour
             if(Input.GetAxisRaw("HorizontalPlayerOne") >0.5f & !faceRight){
                 faceRight = true;
                 Vector3 scale = transform.localScale;
-                
-                transform.localScale = scale;    
+                sr.flipX = false;
+                transform.localScale = scale;
                 
             }else if(Input.GetAxisRaw("HorizontalPlayerOne") <-0.5f & faceRight){
                 
                 faceRight = false;
                 Vector3 scale = transform.localScale;
-                
+                sr.flipX = true;
                 transform.localScale = scale;
             }
             
