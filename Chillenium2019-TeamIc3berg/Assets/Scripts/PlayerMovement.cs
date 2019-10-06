@@ -1,13 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
     bool faceRight = true;
     Vector2 movement;
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log(other.gameObject.name);
+    }
 
     // Update is called once per frame
     void Update()
@@ -15,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
         //input
         movement.x = Input.GetAxisRaw("HorizontalPlayerOne");
         movement.y = Input.GetAxisRaw("VerticalPlayerOne");
+        
     }
     void FixedUpdate(){
         //movement
