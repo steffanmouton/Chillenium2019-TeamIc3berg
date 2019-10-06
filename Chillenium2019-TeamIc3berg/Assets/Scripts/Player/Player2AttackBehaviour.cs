@@ -4,45 +4,53 @@ using UnityEngine;
 
 public class Player2AttackBehaviour : MonoBehaviour
 {
-    
-    public PlayerMovement owningPlayer;
+    public Player2Move owningPlayer;
     public float attackOffset;
     public Vector2 movementVector;
     public float attackRadius;
     private float horizontal;
     private float vertical;
 
-    public bool action;
+    public float reloadTime = 1;
+    public float reloadingTimer = 0;
     
+    public bool action = false;
     
     // Update is called once per frame
 
     private void Start()
     {
-        
+       
     }
     
+    private void Update()
+    {
+        reloadingTimer += Time.deltaTime;
+    }
+        
     void FixedUpdate()
     {
         movementVector.x = owningPlayer.movement.x;
         movementVector.y = owningPlayer.movement.y;
         
         if (movementVector.magnitude > .5f)
-            transform.localPosition = new Vector3(movementVector.normalized.x * attackOffset, 
-                movementVector.normalized.y * attackOffset, 0);
-        
+            transform.localPosition = new Vector3(movementVector.normalized.x * attackOffset, movementVector.normalized.y * attackOffset, 0);
+       
         // Melee Attack
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire2") && reloadingTimer > reloadTime)
         {
             action = true;
-            
-            //Get all targets in range
+            //Get all targets in range. (layerMask 9 = Players)
             Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(transform.position, attackRadius);
-            //attack second closest target (so as to not hit self)
-            if (targetsInRange.Length >= 1)
+            Debug.Log(this.name + ": Attack Registered");
+            
+            // Debug line from attack to player
+            //Debug.DrawLine(transform.position, owningPlayer.transform.position);
+            
+            foreach (var t in targetsInRange)
             {
-                targetsInRange[0].SendMessage("TakeDamage");
-                Debug.Log("Hit" + targetsInRange[1].name);
+                t.SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
+                Debug.Log(this.name + " Hit: " + t.name);
             }
         }
         else

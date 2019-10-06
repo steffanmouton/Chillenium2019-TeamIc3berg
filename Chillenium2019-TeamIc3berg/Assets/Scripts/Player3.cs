@@ -3,11 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player3 : MonoBehaviour
-{
-    public float moveSpeed = 5f;
+{private float moveSpeed;
+    public float baseSpeed;
+    private float dashSpeed;
+    public float dashMultiplier;
+    public float dashCooldown;
+    public float maxDash;
+    
     public Rigidbody2D rb;
     bool faceRight = true;
-    Vector2 movement;
+    public Vector2 movement;
+    private SpriteRenderer sr;
+
+
+    public DashState dashState = DashState.Ready;
+    private float dashTimer = 0;
+
+    public Vector2 savedVelocity;
+
+
+    private void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+        dashSpeed = baseSpeed * dashMultiplier;
+    }
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("Player Colliding with: " + other.gameObject.name);
+    }
 
     // Update is called once per frame
     void Update()
@@ -15,29 +39,77 @@ public class Player3 : MonoBehaviour
         //input
         movement.x = Input.GetAxisRaw("HorizontalPlayerThree");
         movement.y = Input.GetAxisRaw("VerticalPlayerThree");
+
+        switch (dashState)
+        {
+            case DashState.Ready:
+                var isDashKeyDown = Input.GetAxisRaw("P3Dash");
+                if (isDashKeyDown > 0f)
+                {
+                    dashState = DashState.Dashing;
+                }
+
+                break;
+            case DashState.Dashing:
+                dashTimer += Time.deltaTime;
+                if (dashTimer >= maxDash)
+                {
+                    dashTimer = dashCooldown;
+                    dashState = DashState.Cooldown;
+                }
+
+                break;
+            case DashState.Cooldown:
+                dashTimer -= Time.deltaTime;
+                if (dashTimer <= 0)
+                {
+                    dashTimer = 0;
+                    dashState = DashState.Ready;
+                }
+
+                break;
+
+        }
+        
     }
-    void FixedUpdate(){
+    void FixedUpdate()
+    {
         //movement
         //if moving
-        
-        if(Input.GetAxisRaw("HorizontalPlayerThree")> 0.5f || Input.GetAxisRaw("HorizontalPlayerThree") < -0.5f){
-            
-            if(Input.GetAxisRaw("HorizontalPlayerThree") >0.5f & !faceRight){
+
+        if (Input.GetAxisRaw("HorizontalPlayerThree") > 0.5f || Input.GetAxisRaw("HorizontalPlayerThree") < -0.5f)
+        {
+
+            if (Input.GetAxisRaw("HorizontalPlayerThree") > 0.5f & !faceRight)
+            {
                 faceRight = true;
                 Vector3 scale = transform.localScale;
-                scale.x *= -1;
-                transform.localScale = scale;    
-                
-            }else if(Input.GetAxisRaw("HorizontalPlayerThree") <-0.5f & faceRight){
-                
+                sr.flipX = false;
+                transform.localScale = scale;
+
+            }
+            else if (Input.GetAxisRaw("HorizontalPlayerThree") < -0.5f & faceRight)
+            {
+
                 faceRight = false;
                 Vector3 scale = transform.localScale;
-                scale.x *= -1;
+                sr.flipX = true;
                 transform.localScale = scale;
             }
-            
+
         }
-       
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+            
+        //Check for dash and multiply if true
+        if (dashState == DashState.Dashing)
+        {
+            moveSpeed = dashSpeed;
+        }
+        else
+        {
+            moveSpeed = baseSpeed;
+        }
+
+        //Move the player
+        rb.MovePosition(rb.position + Time.fixedDeltaTime * moveSpeed * movement);
     }
 }

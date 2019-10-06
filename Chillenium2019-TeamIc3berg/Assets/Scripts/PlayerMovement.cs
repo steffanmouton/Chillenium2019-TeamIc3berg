@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
         switch (dashState)
         {
             case DashState.Ready:
-                var isDashKeyDown = Input.GetKeyDown(KeyCode.LeftShift);
+                var isDashKeyDown = Input.GetButtonDown("P1Dash");
                 if (isDashKeyDown)
                 {
                     dashState = DashState.Dashing;
