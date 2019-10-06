@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
+﻿
 using UnityEngine;
 
 public enum AttackState
@@ -46,6 +43,7 @@ public class PlayerAttackBehaviour : MonoBehaviour
         // Melee Attack
         if (Input.GetAxisRaw("Fire1") < -.01f && reloadingTimer > reloadTime)
         {
+            SoundManagerScript.PlaySound("attackSound");
             reloadingTimer = 0;
             action = true;
             //Get all targets in range. (layerMask 9 = Players)

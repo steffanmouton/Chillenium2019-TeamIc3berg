@@ -29,7 +29,7 @@ public class LevelPlateBehaviour : MonoBehaviour
         sr.sprite = onSprite;
         gm.SendMessage("AddObjectivePoint");
     }
-
+    
     private void OnTriggerExit2D(Collider2D other)
     {
         sr.sprite = offSprite;

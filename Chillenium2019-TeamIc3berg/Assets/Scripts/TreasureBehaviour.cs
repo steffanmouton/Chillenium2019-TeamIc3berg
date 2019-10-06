@@ -20,11 +20,11 @@ public class TreasureBehaviour : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (endGame = true)
-        {
-            gm.SendMessage("EndGame");
-        }
-    }
+    private void OnTriggerEnter2D(Collider2D other)
+         {
+             if (endGame)
+             {
+                 gm.SendMessage("EndGame");
+             }
+         }
 }

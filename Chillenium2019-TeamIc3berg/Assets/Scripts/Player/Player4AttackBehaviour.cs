@@ -39,6 +39,8 @@ public class Player4AttackBehaviour : MonoBehaviour
         // Melee Attack
         if (Input.GetButtonDown("Fire4") && reloadingTimer > reloadTime)
         {
+            SoundManagerScript.PlaySound("attackSound");
+            reloadingTimer = 0;
             action = true;
             //Get all targets in range. (layerMask 9 = Players)
             Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(transform.position, attackRadius);

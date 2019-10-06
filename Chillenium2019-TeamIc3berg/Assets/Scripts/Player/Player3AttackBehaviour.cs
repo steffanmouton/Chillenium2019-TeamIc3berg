@@ -39,6 +39,7 @@ public class Player3AttackBehaviour : MonoBehaviour
         // Melee Attack
         if (Input.GetAxisRaw("Fire3") < -.01f && reloadingTimer > reloadTime)
         {
+            SoundManagerScript.PlaySound("attackSound");
             reloadingTimer = 0;
             action = true;
             //Get all targets in range. (layerMask 9 = Players)
