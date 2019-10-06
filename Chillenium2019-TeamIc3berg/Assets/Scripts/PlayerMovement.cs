@@ -15,10 +15,13 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    public float moveSpeed = 5f;
+    private float moveSpeed;
+    public float baseSpeed;
+    private float dashSpeed;
     public float dashMultiplier;
     public float dashCooldown;
     public float maxDash;
+    
     public Rigidbody2D rb;
     bool faceRight = true;
     public Vector2 movement;
@@ -34,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        dashSpeed = baseSpeed * dashMultiplier;
     }
 
     public void OnCollisionEnter2D(Collision2D other)
@@ -109,8 +113,14 @@ public class PlayerMovement : MonoBehaviour
             
         //Check for dash and multiply if true
         if (dashState == DashState.Dashing)
-          moveSpeed *= dashMultiplier;
-            
+        {
+            moveSpeed = dashSpeed;
+        }
+        else
+        {
+            moveSpeed = baseSpeed;
+        }
+
         //Move the player
         rb.MovePosition(rb.position + Time.fixedDeltaTime * moveSpeed * movement);
     }
