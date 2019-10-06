@@ -10,12 +10,10 @@ public class Crates : MonoBehaviour
 
     void Awake()
     {
-        SpriteRenderer sr = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
-
-        gameObject.AddComponent<BoxCollider2D>();
-
+        //SpriteRenderer sr = gameObject.AddComponent<SpriteRenderer>() as SpriteRenderer;
+        
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        //rb.bodyType = RigidbodyType2D.Dynamic;
         
         //stationary
         rb.gravityScale = 0f;
@@ -34,16 +32,14 @@ public class Crates : MonoBehaviour
     {
         Crate.touchCrate = true;
         //GetComponent<Animation>().Play("PushingCrate");
-        
-        //Debug.Log("Collision start");
+        //Debug.Log("Crate collision start");
     }
 
     void OnCollisionExit2D(Collision2D collision)
     {
         Crate.ResetCrate();
         //GetComponent<Animation>().Stop("PushingCrate");
-        
-        //Debug.Log("Collision stopped");
+        //Debug.Log("Crate collision stopped");
     }
 
     private struct Crate

@@ -12,7 +12,8 @@ public class PlayerAttackBehaviour : MonoBehaviour
     public float attackRadius;
     private float horizontal;
     private float vertical;
-    
+
+    public bool action = false;
     
     // Update is called once per frame
 
@@ -30,8 +31,9 @@ public class PlayerAttackBehaviour : MonoBehaviour
             transform.localPosition = new Vector3(movementVector.normalized.x * attackOffset, movementVector.normalized.y * attackOffset, 0);
         
         // Melee Attack
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            action = true;
             //Get all targets in range. (layerMask 9 = Players)
             Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(transform.position, attackRadius);
             Debug.Log("Attack Registered");
@@ -52,6 +54,10 @@ public class PlayerAttackBehaviour : MonoBehaviour
             }*/
             
             
+        }
+        else
+        {
+            action = false;
         }
     }
 }

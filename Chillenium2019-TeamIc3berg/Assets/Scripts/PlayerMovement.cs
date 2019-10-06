@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log(other.gameObject.name);
+        Debug.Log("Player Colliding with: " + other.gameObject.name);
     }
 
     // Update is called once per frame

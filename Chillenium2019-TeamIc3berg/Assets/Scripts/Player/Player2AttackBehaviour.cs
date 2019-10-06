@@ -11,6 +11,8 @@ public class Player2AttackBehaviour : MonoBehaviour
     public float attackRadius;
     private float horizontal;
     private float vertical;
+
+    public bool action;
     
     
     // Update is called once per frame
@@ -32,6 +34,8 @@ public class Player2AttackBehaviour : MonoBehaviour
         // Melee Attack
         if (Input.GetButtonDown("Fire1"))
         {
+            action = true;
+            
             //Get all targets in range
             Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(transform.position, attackRadius);
             //attack second closest target (so as to not hit self)
@@ -40,6 +44,10 @@ public class Player2AttackBehaviour : MonoBehaviour
                 targetsInRange[0].SendMessage("TakeDamage");
                 Debug.Log("Hit" + targetsInRange[1].name);
             }
+        }
+        else
+        {
+            action = false;
         }
     }
 }
