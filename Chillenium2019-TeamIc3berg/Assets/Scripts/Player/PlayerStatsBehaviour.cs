@@ -7,6 +7,8 @@ public class PlayerStatsBehaviour : MonoBehaviour
     public int hp;
     public float deathTimer;
     public bool isAlive;
+
+    public GameManagerBehaviour gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +23,9 @@ public class PlayerStatsBehaviour : MonoBehaviour
 
     private void Die()
     {
+        gm.SendMessage("PlayerDead");
         isAlive = false;
-        Destroy(this.gameObject, deathTimer);
+        this.gameObject.SetActive(false);
     }
 
     private void TakeDamage(int incomingDamage)
