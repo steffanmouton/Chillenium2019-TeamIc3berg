@@ -26,7 +26,8 @@ public class Player2AttackBehaviour : MonoBehaviour
         movementVector.y = owningPlayer.movement.y;
         
         if (movementVector.magnitude > .5f)
-            transform.localPosition = new Vector3(movementVector.normalized.x * attackOffset, movementVector.normalized.y * attackOffset, 0);
+            transform.localPosition = new Vector3(movementVector.normalized.x * attackOffset, 
+                movementVector.normalized.y * attackOffset, 0);
         
         // Melee Attack
         if (Input.GetButtonDown("Fire1"))

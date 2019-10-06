@@ -15,4 +15,5 @@ public class Player2StatsBehaviour : MonoBehaviour
     {
         
     }
+    
 }

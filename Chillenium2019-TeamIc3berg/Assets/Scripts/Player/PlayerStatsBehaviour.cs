@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerStatsBehaviour : MonoBehaviour
 {
-    public int hp = 1;
-
+    public int hp;
+    public float deathTimer;
     public bool isAlive;
     // Start is called before the first frame update
     void Start()
@@ -16,19 +16,20 @@ public class PlayerStatsBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hp < 1)
-        {
-            
-        }
+        
     }
 
     private void Die()
     {
-        
+        isAlive = false;
+        Destroy(this.gameObject, deathTimer);
     }
 
     private void TakeDamage(int incomingDamage)
     {
         hp -= incomingDamage;
+        
+        if (hp <= 0)
+            Die();
     }
 }

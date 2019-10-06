@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class PlayerAttackBehaviour : MonoBehaviour
@@ -26,19 +27,31 @@ public class PlayerAttackBehaviour : MonoBehaviour
         movementVector.y = owningPlayer.movement.y;
         
         if (movementVector.magnitude > .5f)
-        transform.localPosition = new Vector3(movementVector.normalized.x * attackOffset, movementVector.normalized.y * attackOffset, 0);
+            transform.localPosition = new Vector3(movementVector.normalized.x * attackOffset, movementVector.normalized.y * attackOffset, 0);
         
         // Melee Attack
         if (Input.GetButtonDown("Fire1"))
         {
-            //Get all targets in range
+            //Get all targets in range. (layerMask 9 = Players)
             Collider2D[] targetsInRange = Physics2D.OverlapCircleAll(transform.position, attackRadius);
+            Debug.Log("Attack Registered");
+            
+            // Debug line from attack to player
+            //Debug.DrawLine(transform.position, owningPlayer.transform.position);
+            
+            foreach (var t in targetsInRange)
+            {
+                t.SendMessage("TakeDamage", 1, SendMessageOptions.DontRequireReceiver);
+                Debug.Log("Hit: " + t.name);
+            }
             //attack second closest target (so as to not hit self)
-            if (targetsInRange.Length >= 1)
+            /*if (targetsInRange.Length >= 1)
             {
                 targetsInRange[0].SendMessage("TakeDamage");
                 Debug.Log("Hit" + targetsInRange[0].name);
-            }
+            }*/
+            
+            
         }
     }
 }
