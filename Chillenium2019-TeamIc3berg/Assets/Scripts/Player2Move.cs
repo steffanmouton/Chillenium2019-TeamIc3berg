@@ -6,6 +6,7 @@ public class Player2Move : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
+    public Animator anim;
     bool faceRight = true;
     Vector2 movement;
 
@@ -15,6 +16,9 @@ public class Player2Move : MonoBehaviour
         //input
         movement.x = Input.GetAxisRaw("HorizontalPlayerTwo");
         movement.y = Input.GetAxisRaw("VerticalPlayerTwo");
+        // anim.SetFloat("HorizontalPlayerTwo",movement.x);
+        anim.SetFloat("vertical",movement.y);
+        anim.SetFloat("speed", movement.sqrMagnitude);
     }
     void FixedUpdate(){
         //movement

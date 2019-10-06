@@ -9,12 +9,17 @@ public class Player3 : MonoBehaviour
     bool faceRight = true;
     Vector2 movement;
 
+    public Animator anim;
+
     // Update is called once per frame
     void Update()
     {
         //input
         movement.x = Input.GetAxisRaw("HorizontalPlayerThree");
         movement.y = Input.GetAxisRaw("VerticalPlayerThree");
+
+        anim.SetFloat("vertical",movement.y);
+        anim.SetFloat("speed", movement.sqrMagnitude);
     }
     void FixedUpdate(){
         //movement

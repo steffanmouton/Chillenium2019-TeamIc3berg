@@ -8,13 +8,16 @@ public class player4Move : MonoBehaviour
     public Rigidbody2D rb;
     bool faceRight = true;
     Vector2 movement;
-
+    public Animator anim;
     // Update is called once per frame
     void Update()
     {
         //input
         movement.x = Input.GetAxisRaw("HorizontalPlayerFour");
         movement.y = Input.GetAxisRaw("VerticalPlayerFour");
+
+        anim.SetFloat("vertical",movement.y);
+        anim.SetFloat("speed", movement.sqrMagnitude);
     }
     void FixedUpdate(){
         //movement

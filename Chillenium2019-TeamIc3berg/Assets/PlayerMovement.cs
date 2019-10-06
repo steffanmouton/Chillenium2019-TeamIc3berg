@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     bool faceRight = true;
     public Vector2 movement;
     private SpriteRenderer sr;
-
+    public Animator anim;
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -22,6 +22,9 @@ public class PlayerMovement : MonoBehaviour
         //input
         movement.x = Input.GetAxisRaw("HorizontalPlayerOne");
         movement.y = Input.GetAxisRaw("VerticalPlayerOne");
+
+        anim.SetFloat("vertical",movement.y);
+        anim.SetFloat("speed", movement.sqrMagnitude);
     }
     void FixedUpdate(){
         //movement
